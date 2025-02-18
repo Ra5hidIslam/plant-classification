@@ -1,0 +1,30 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(199, 218, 199);
+    color: #c23535;
+    padding: 1rem;
+    height:4em
+  }
+  
+  .navbar-left .logo {
+    height:90px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .navbar-center{
+    margin-right: 40%;
+    /* align-items:; */
+    /* background-color: rgb(245, 242, 242); */
+    border-radius: 10px;
+    padding:0;
+    width: 20em;
+    height:100%; 
+  }
+  .navbar-logo{
+    height: 100%;
+  }

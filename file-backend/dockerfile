@@ -1,0 +1,9 @@
+# Use Python/Node.js based on your implementation
+FROM python:3.9
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 4000
+CMD ["python", "fileServer.py"]
+

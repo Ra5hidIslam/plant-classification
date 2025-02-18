@@ -1,0 +1,152 @@
+
+
+# old version
+# version: '3.8'
+
+# services:
+#   react-app:
+#     build: ./houseplant
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - ai-server
+#       - file-server
+#     env_file:
+#       - .env.development
+#       - .env.production
+
+#   ai-server:
+#     build: ./ai-instance
+#     ports:
+#       - "5003:5003"
+#     volumes:
+#       - "/home/rashid/Code/Plant Classification Final Docker/Data/uploads:/app/Data/uploads:z"
+#       - "/home/rashid/Code/Plant Classification Final Docker/Data:/app/Data:z"
+#     depends_on:
+#       - mongodb
+#     env_file:
+#       - .env.development
+#       - .env.production
+
+#   file-server:
+#     build: ./file-backend
+#     ports:
+#       - "5002:5002"
+#     volumes:
+#       - "/home/rashid/Code/Plant Classification Final Docker/Data/PlantData:/app/Data/PlantData:z"
+#     env_file:
+#       - .env.development
+#       - .env.production
+
+#   mongodb:
+#     image: mongo:latest
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - "/var/lib/mongo:/data/db:z"
+
+#   mongodb-server:
+#     build: ./MongoDB
+#     ports:
+#       - "5001:5001"
+#     depends_on:
+#       - mongodb
+#     env_file:  
+#       - .env.development
+#       - .env.production
+#   nginx:
+#     build: ./nginx
+#     ports:
+#       - "8080:80"
+#     depends_on:
+#       - react-app
+#       - ai-server
+#       - file-server
+
+# volumes:
+#   mongo-data:
+
+# new version
+
+
+version: '3.8'
+
+services:
+  react-app:
+    build: ./houseplant
+    ports:
+      - "80:80"
+    depends_on:
+      - ai-server
+      - file-server
+    env_file:
+      - .env.development
+      - .env.production
+    networks:
+      - plant-network
+
+  ai-server:
+    build: ./ai-instance
+    ports:
+      - "5003:5003"
+    volumes:
+      - "/home/rashid/Code/Plant Classification Final Docker/Data/uploads:/app/Data/uploads:z"
+      - "/home/rashid/Code/Plant Classification Final Docker/Data:/app/Data:z"
+    depends_on:
+      - mongodb
+    env_file:
+      - .env.development
+      - .env.production
+    networks:
+      - plant-network
+
+  file-server:
+    build: ./file-backend
+    ports:
+      - "5002:5002"
+    volumes:
+      - "/home/rashid/Code/Plant Classification Final Docker/Data/PlantData:/app/Data/PlantData:z"
+    env_file:
+      - .env.development
+      - .env.production
+    networks:
+      - plant-network
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - "/var/lib/mongo:/data/db:z"
+    networks:
+      - plant-network
+
+  mongodb-server:
+    build: ./MongoDB
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongodb
+    env_file:  
+      - .env.development
+      - .env.production
+    networks:
+      - plant-network
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - react-app
+      - ai-server
+      - file-server
+    networks:
+      - plant-network
+
+networks:
+  plant-network:
+    driver: bridge
+
+volumes:
+  mongo-data:

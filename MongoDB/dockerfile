@@ -1,0 +1,17 @@
+# Base image
+FROM python:3.9
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files
+COPY . .
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the port for Flask
+EXPOSE 5001
+
+# Command to run the application
+CMD ["python", "mongoDBInstance.py"]
