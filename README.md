@@ -45,57 +45,13 @@ cd house‑plant‑classifier
 cp .env.example .env            # fill in custom values if needed
 ```
 * The data is not included here but can be downloaded from this link: https://www.kaggle.com/datasets/kacpergregorowicz/house-plant-species
-* Please train the model by closing this Kaggle notebook : https://www.kaggle.com/code/rashid2048/house-plant-identifier-model-efficientnet
+* Please train the model by forking this Kaggle notebook : https://www.kaggle.com/code/rashid2048/house-plant-identifier-model-efficientnet
 
 ### 2. Build & Run Everything
 
 ```bash
 docker compose up --build
 ```
-
----
-
-## 📝 API Cheat‑Sheet
-
-### 1. Predict Plant
-
-```http
-POST /predict
-Content‑Type: multipart/form‑data
-
-file=@my_plant.jpg
-```
-Response
-```json
-{
-  "plant_id": "aloe_vera"
-}
-```
-
-### 2. Fetch Plant Details
-
-```http
-GET /plants/aloe_vera
-```
-Response
-```json
-{
-  "name": "Aloe Vera",
-  "description_path": "/descriptions/aloe_vera.md",
-  "image_paths": [
-    "/images/aloe1.jpg",
-    "/images/aloe2.jpg"
-  ]
-}
-```
-
----
-
-## 🧑‍💻 Development Notes
-
-* **Retraining** – See `notebooks/Train_EfficientNetB0.ipynb`. Push the new `model.h5` to `ai_service/` and rebuild.
-* **Environment Variables** – Defined in `.env.example` (Mongo URI, CORS origins, etc.).
-* **Scaling** – Because each service is isolated you can horizontal‑scale the AI container independently.
 
 ---
 
